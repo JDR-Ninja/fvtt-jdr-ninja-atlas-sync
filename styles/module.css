@@ -1,0 +1,132 @@
+.jdr-ninja-atlas-sync .atlas-sync {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  height: 100%;
+  overflow: hidden;
+}
+
+.atlas-sync__topbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--color-border-light-primary, #999);
+}
+
+.atlas-sync__status,
+.atlas-sync__controls {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.atlas-sync__dot {
+  width: 0.6rem;
+  height: 0.6rem;
+  border-radius: 50%;
+  display: inline-block;
+}
+.atlas-sync__dot--on { background: #3fae5a; box-shadow: 0 0 4px #3fae5a; }
+.atlas-sync__dot--off { background: #b03a3a; }
+
+.atlas-sync__world { font-weight: 600; }
+
+.atlas-sync__chip {
+  font-size: 0.75rem;
+  padding: 0.1rem 0.45rem;
+  border-radius: 0.75rem;
+  background: rgba(0, 0, 0, 0.08);
+  border: 1px solid var(--color-border-light-tertiary, #bbb);
+}
+
+.atlas-sync__field {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.75rem;
+  gap: 0.15rem;
+}
+.atlas-sync__field select { min-width: 12rem; }
+
+.atlas-sync__toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.8rem;
+}
+
+.atlas-sync__rows {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.atlas-sync__row {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.4rem 0.5rem;
+  border: 1px solid var(--color-border-light-tertiary, #ccc);
+  border-radius: 0.4rem;
+  background: rgba(0, 0, 0, 0.02);
+}
+
+.atlas-sync__avatar {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 0.3rem;
+  object-fit: cover;
+  border: none;
+  flex: 0 0 auto;
+}
+
+.atlas-sync__row-main {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+.atlas-sync__row-name { font-weight: 600; }
+.atlas-sync__badge { font-size: 0.7rem; opacity: 0.85; }
+.atlas-sync__badge--muted { font-style: italic; opacity: 0.6; }
+
+.atlas-sync__row-actions { display: flex; gap: 0.3rem; flex: 0 0 auto; }
+
+.atlas-sync__btn,
+.atlas-sync__icon-btn {
+  cursor: pointer;
+  border-radius: 0.3rem;
+  border: 1px solid var(--color-border-dark-tertiary, #888);
+  padding: 0.25rem 0.6rem;
+  font-size: 0.78rem;
+}
+.atlas-sync__btn:disabled { opacity: 0.45; cursor: not-allowed; }
+.atlas-sync__btn--primary { background: #4b6cb7; color: #fff; border-color: #3a589c; }
+.atlas-sync__btn--ghost { background: transparent; }
+.atlas-sync__icon-btn { padding: 0.2rem 0.4rem; }
+
+.atlas-sync__banner {
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.4rem;
+  font-size: 0.85rem;
+}
+.atlas-sync__banner--error { background: #f6dada; color: #7a1f1f; border: 1px solid #d98b8b; }
+.atlas-sync__banner--warn { background: #fbf0d6; color: #6e5410; border: 1px solid #e0c97e; }
+
+.atlas-sync__muted { opacity: 0.7; font-style: italic; }
+
+/* Actors-directory button */
+button.jdr-atlas-sync-open {
+  width: 100%;
+  margin-top: 0.25rem;
+  cursor: pointer;
+}
+button.jdr-atlas-sync-open:disabled { opacity: 0.5; cursor: not-allowed; }

@@ -1,0 +1,75 @@
+{
+  "JDRNINJA_ATLAS_SYNC": {
+    "settings": {
+      "token": {
+        "name": "Sync token",
+        "hint": "The 'publicId.secret' token minted on the Atlas world settings page (Synchronisation Foundry)."
+      },
+      "apiBaseUrl": {
+        "name": "Atlas API base URL",
+        "hint": "Leave the default unless instructed otherwise."
+      },
+      "markCreatedAsClaimable": {
+        "name": "Create characters as \"free\"",
+        "hint": "When enabled, a sync-created character is marked claimable and any campaign member can take it."
+      }
+    },
+    "app": {
+      "title": "Atlas Sync",
+      "openButton": "Atlas",
+      "refresh": "Refresh",
+      "campaign": "Campaign",
+      "pickCampaign": "Pick a campaign…",
+      "createClaimable": "Create as free",
+      "syncAll": "Sync all",
+      "loading": "Loading…",
+      "disconnected": "Not connected"
+    },
+    "row": {
+      "linked": "Linked",
+      "unlinked": "Not linked",
+      "syncedOn": "Synced on",
+      "sync": "Sync",
+      "unlink": "Unlink",
+      "create": "Create in Atlas",
+      "link": "Link to existing"
+    },
+    "dialog": {
+      "linkTitle": "Link to an Atlas character",
+      "linkLabel": "Atlas character",
+      "linkConfirm": "Link"
+    },
+    "context": {
+      "sync": "Sync to Atlas"
+    },
+    "guard": {
+      "wrongSystem": "Sync unavailable: this module requires the dnd5e system (active system: {system}).",
+      "tooOld": "Sync unavailable: dnd5e version {version} is too old (minimum {min}).",
+      "disabledHint": "Unavailable: unsupported game system."
+    },
+    "notify": {
+      "synced": "Character synced.",
+      "created": "Character created in Atlas.",
+      "linked": "Character linked.",
+      "unlinked": "Character unlinked.",
+      "pickCampaign": "Pick a campaign first.",
+      "noCharacters": "No characters in this campaign.",
+      "nothingLinked": "No linked characters to sync.",
+      "batchDone": "Sync done: {ok} succeeded, {failed} failed."
+    },
+    "status": {
+      "OK": "Success.",
+      "INVALID_TOKEN": "Invalid or missing token. Check the token in the module settings.",
+      "TOKEN_REVOKED": "This token was revoked. Mint a new one in Atlas.",
+      "TIER_REQUIRED": "Foundry sync is not included in the world owner's plan.",
+      "CAMPAIGN_NOT_FOUND": "Campaign not found in this world.",
+      "CHARACTER_NOT_FOUND": "Character not found in this world.",
+      "RATE_LIMITED": "Rate limited: this character was synced recently. Try again later.",
+      "VALIDATION_FAILED": "Atlas could not validate the sheet.",
+      "LIMIT_REACHED": "Character limit reached for this plan.",
+      "TOO_MANY_REQUESTS": "Too many requests. Wait a moment and try again.",
+      "NETWORK_ERROR": "Could not reach Atlas. Check your connection and the API URL.",
+      "UNKNOWN": "Something went wrong."
+    }
+  }
+}

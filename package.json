@@ -1,0 +1,16 @@
+{
+  "name": "jdr-ninja-atlas-sync",
+  "private": true,
+  "type": "module",
+  "description": "Build tooling for the Atlas Character Sync Foundry VTT module.",
+  "license": "MIT",
+  "scripts": {
+    "build": "node tools/build.mjs",
+    "watch": "node tools/build.mjs --watch",
+    "release": "node tools/release.mjs"
+  },
+  "devDependencies": {
+    "archiver": "^7.0.1",
+    "esbuild": "^0.25.0"
+  }
+}
