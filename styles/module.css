@@ -97,6 +97,7 @@
 .atlas-sync__row-name { font-weight: 600; }
 .atlas-sync__badge { font-size: 0.7rem; opacity: 0.85; }
 .atlas-sync__badge--muted { font-style: italic; opacity: 0.6; }
+.atlas-sync__badge--error { display: block; margin-top: 0.15rem; opacity: 1; color: #b03a3a; }
 
 .atlas-sync__row-actions { display: flex; gap: 0.3rem; flex: 0 0 auto; }
 

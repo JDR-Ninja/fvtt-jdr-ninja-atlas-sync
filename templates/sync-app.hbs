@@ -75,6 +75,11 @@
               {{else}}
                 <span class="atlas-sync__badge atlas-sync__badge--muted">{{localize "JDRNINJA_ATLAS_SYNC.row.unlinked"}}</span>
               {{/if}}
+              {{#if this.error}}
+                <span class="atlas-sync__badge atlas-sync__badge--error">
+                  <i class="fa-solid fa-triangle-exclamation"></i> {{this.error}}
+                </span>
+              {{/if}}
             </div>
             <div class="atlas-sync__row-actions">
               {{#if this.linked}}

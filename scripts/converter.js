@@ -8,6 +8,10 @@ import { MODULE_ID } from "./constants.js";
 
 const ABILITY_KEYS = ["str", "dex", "con", "int", "wis", "cha"];
 
+// Broad proficiency categories the Atlas schema accepts; specific item codes are dropped.
+const WEAPON_CODES = ["sim", "mar"];
+const ARMOR_CODES = ["lgt", "med", "hvy", "shl"];
+
 function toArray(value) {
   if (!value) return [];
   if (value instanceof Set) return Array.from(value);
@@ -17,9 +21,14 @@ function toArray(value) {
   return [];
 }
 
-function codeBag(trait) {
+function codeBag(trait, allowed) {
+  let value = toArray(trait?.value);
+  // Some traits (weapon proficiencies) mix broad categories with specific item
+  // codes; Atlas only accepts the broad categories, so filter when an allowlist
+  // is given and drop everything else.
+  if (allowed) value = value.filter((code) => allowed.includes(code));
   return {
-    value: toArray(trait?.value),
+    value,
     custom: typeof trait?.custom === "string" ? trait.custom : "",
   };
 }
@@ -66,18 +75,24 @@ function resolveSkills(actor) {
   const skills = actor.system?.skills ?? {};
   for (const [code, skill] of Object.entries(skills)) {
     const value = Number(skill?.value ?? 0) || 0;
-    if (value > 0) out[code] = value; // 1 = proficiency, 2 = expertise
+    // Atlas only accepts full proficiency (1) or expertise (2); drop untrained (0)
+    // and half-proficiency (0.5, e.g. Bard Jack of All Trades) which it rejects.
+    if (value === 1 || value === 2) out[code] = value;
   }
   return out;
 }
 
 function resolveSenses(actor) {
   const s = actor.system?.attributes?.senses ?? {};
+  // dnd5e 5.3 moved the numeric senses under `senses.ranges.*`; reading the
+  // legacy flat keys (`s.blindsight`, ...) now fires a deprecation warning.
+  // Prefer `ranges` when present, fall back to the flat keys for older systems.
+  const r = s.ranges ?? s;
   return {
-    darkvision: Number(s.darkvision ?? 0) || 0,
-    blindsight: Number(s.blindsight ?? 0) || 0,
-    tremorsense: Number(s.tremorsense ?? 0) || 0,
-    truesight: Number(s.truesight ?? 0) || 0,
+    darkvision: Number(r.darkvision ?? 0) || 0,
+    blindsight: Number(r.blindsight ?? 0) || 0,
+    tremorsense: Number(r.tremorsense ?? 0) || 0,
+    truesight: Number(r.truesight ?? 0) || 0,
     special: typeof s.special === "string" ? s.special : "",
   };
 }
@@ -99,8 +114,8 @@ export function buildSheet(actor) {
     skills: resolveSkills(actor),
     senses: resolveSenses(actor),
     languages: codeBag(traits.languages),
-    weapons: codeBag(traits.weaponProf),
-    armor: codeBag(traits.armorProf),
+    weapons: codeBag(traits.weaponProf, WEAPON_CODES),
+    armor: codeBag(traits.armorProf, ARMOR_CODES),
   };
 }
 

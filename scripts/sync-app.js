@@ -7,7 +7,7 @@
 import { MODULE_ID, SETTINGS, STATUS, localizeStatus } from "./constants.js";
 import { AtlasApi } from "./api.js";
 import { getLink, isLinked, setLink, clearLink } from "./flags.js";
-import { pushActor, createActor, notify } from "./sync.js";
+import { pushActor, createActor, notify, resultMessage } from "./sync.js";
 import { systemGuard, guardMessage } from "./system-guard.js";
 
 const { ApplicationV2, HandlebarsApplicationMixin } = foundry.applications.api;
@@ -37,11 +37,19 @@ export class AtlasSyncApp extends HandlebarsApplicationMixin(ApplicationV2) {
   };
 
   static PARTS = {
-    body: { template: `modules/${MODULE_ID}/templates/sync-app.hbs` },
+    // `scrollable` preserves the rows list scroll position across re-renders (linking an
+    // actor re-renders the part, which would otherwise snap the list back to the top).
+    body: {
+      template: `modules/${MODULE_ID}/templates/sync-app.hbs`,
+      scrollable: [".atlas-sync__rows"],
+    },
   };
 
   /** Loaded API state. */
   _data = { loading: true, whoami: null, campaigns: [], error: null };
+
+  /** Per-actor last sync error message (actorId → localized message), surfaced on each row. */
+  _syncErrors = new Map();
 
   static open() {
     if (!AtlasSyncApp._instance) AtlasSyncApp._instance = new AtlasSyncApp();
@@ -55,6 +63,7 @@ export class AtlasSyncApp extends HandlebarsApplicationMixin(ApplicationV2) {
   async loadData() {
     this._data.loading = true;
     this._data.error = null;
+    this._syncErrors.clear();
 
     if (!AtlasApi.hasToken()) {
       this._data = { loading: false, whoami: null, campaigns: [], error: STATUS.INVALID_TOKEN };
@@ -99,6 +108,7 @@ export class AtlasSyncApp extends HandlebarsApplicationMixin(ApplicationV2) {
         syncedLabel: link?.syncedAtUtc
           ? new Date(link.syncedAtUtc).toLocaleString()
           : null,
+        error: this._syncErrors.get(actor.id) ?? null,
       };
     });
 
@@ -161,6 +171,8 @@ export class AtlasSyncApp extends HandlebarsApplicationMixin(ApplicationV2) {
     const actor = this._actorFromTarget(target);
     if (!actor) return;
     const result = await pushActor(actor);
+    if (result.ok) this._syncErrors.delete(actor.id);
+    else this._syncErrors.set(actor.id, resultMessage(result));
     notify(result);
     this.render();
   }
@@ -169,6 +181,7 @@ export class AtlasSyncApp extends HandlebarsApplicationMixin(ApplicationV2) {
     const actor = this._actorFromTarget(target);
     if (!actor) return;
     await clearLink(actor);
+    this._syncErrors.delete(actor.id);
     ui.notifications.info(game.i18n.localize("JDRNINJA_ATLAS_SYNC.notify.unlinked"));
     this.render();
   }
@@ -236,16 +249,57 @@ export class AtlasSyncApp extends HandlebarsApplicationMixin(ApplicationV2) {
       return;
     }
 
-    let ok = 0;
-    let failed = 0;
-    for (const actor of linkedActors) {
-      const result = await pushActor(actor);
-      if (result.ok) ok += 1;
-      else failed += 1;
-    }
-    ui.notifications.info(
-      game.i18n.format("JDRNINJA_ATLAS_SYNC.notify.batchDone", { ok, failed })
+    const total = linkedActors.length;
+    // Progress notification (Foundry V13+): a single toast we update per actor so
+    // the GM sees which sheet is in flight instead of a silent multi-second wait.
+    const progress = ui.notifications.info(
+      game.i18n.format("JDRNINJA_ATLAS_SYNC.notify.batchProgress", {
+        name: linkedActors[0].name,
+        current: 1,
+        total,
+      }),
+      { progress: true }
     );
+
+    // Fresh error map for this batch: each failed actor keeps its reason for the per-row badge.
+    this._syncErrors.clear();
+    let ok = 0;
+    const failures = [];
+    for (let i = 0; i < total; i += 1) {
+      const actor = linkedActors[i];
+      progress?.update?.({
+        pct: i / total,
+        message: game.i18n.format("JDRNINJA_ATLAS_SYNC.notify.batchProgress", {
+          name: actor.name,
+          current: i + 1,
+          total,
+        }),
+      });
+      const result = await pushActor(actor);
+      if (result.ok) {
+        ok += 1;
+      } else {
+        this._syncErrors.set(actor.id, resultMessage(result));
+        failures.push(actor.name);
+      }
+    }
+    progress?.update?.({ pct: 1 });
+
+    // Summary: plain info when everything synced, a warning naming the failures otherwise.
+    // Each failed row also shows its own reason (see _prepareContext / the template badge).
+    if (failures.length === 0) {
+      ui.notifications.info(
+        game.i18n.format("JDRNINJA_ATLAS_SYNC.notify.batchDone", { ok, failed: 0 })
+      );
+    } else {
+      ui.notifications.warn(
+        game.i18n.format("JDRNINJA_ATLAS_SYNC.notify.batchDoneErrors", {
+          ok,
+          failed: failures.length,
+          names: failures.join(", "),
+        })
+      );
+    }
     this.render();
   }
 }

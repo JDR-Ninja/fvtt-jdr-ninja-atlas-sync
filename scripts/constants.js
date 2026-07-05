@@ -49,3 +49,17 @@ export function localizeStatus(code) {
   // Fall back to a generic message if a new server code has no string yet.
   return translated === key ? game.i18n.localize("JDRNINJA_ATLAS_SYNC.status.UNKNOWN") : translated;
 }
+
+/** Humanizes a cooldown (seconds) into a compact "23 h 5 min" style string for the retry hint. */
+export function formatRetryDelay(totalSeconds) {
+  const s = Math.max(0, Math.round(Number(totalSeconds) || 0));
+  const h = Math.floor(s / 3600);
+  const m = Math.floor((s % 3600) / 60);
+  const u = (unit) => game.i18n.localize(`JDRNINJA_ATLAS_SYNC.time.${unit}`);
+  const parts = [];
+  if (h > 0) parts.push(`${h} ${u("hours")}`);
+  if (m > 0) parts.push(`${m} ${u("minutes")}`);
+  // Under a minute (or an exact hour with no minutes left): show seconds so it is never empty.
+  if (parts.length === 0) parts.push(`${s % 60} ${u("seconds")}`);
+  return parts.join(" ");
+}

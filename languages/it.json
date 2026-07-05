@@ -1,0 +1,83 @@
+{
+  "JDRNINJA_ATLAS_SYNC": {
+    "settings": {
+      "token": {
+        "name": "Token di sincronizzazione",
+        "hint": "Il token «publicId.secret» generato nelle impostazioni del mondo di Atlas (Sincronizzazione Foundry)."
+      },
+      "apiBaseUrl": {
+        "name": "URL di base dell'API di Atlas",
+        "hint": "Lasciare il valore predefinito salvo diversa indicazione."
+      },
+      "markCreatedAsClaimable": {
+        "name": "Crea i personaggi come «liberi»",
+        "hint": "Se attivo, un personaggio creato dalla sincronizzazione viene contrassegnato come libero e può essere reclamato da qualsiasi membro della campagna."
+      }
+    },
+    "app": {
+      "title": "Sincronizzazione Atlas",
+      "openButton": "Atlas",
+      "refresh": "Aggiorna",
+      "campaign": "Campagna",
+      "pickCampaign": "Scegli una campagna…",
+      "createClaimable": "Crea come libero",
+      "syncAll": "Sincronizza tutto",
+      "loading": "Caricamento…",
+      "disconnected": "Non connesso"
+    },
+    "row": {
+      "linked": "Collegato",
+      "unlinked": "Non collegato",
+      "syncedOn": "Sincronizzato il",
+      "sync": "Sincronizza",
+      "unlink": "Scollega",
+      "create": "Crea in Atlas",
+      "link": "Collega a uno esistente"
+    },
+    "dialog": {
+      "linkTitle": "Collega a un personaggio di Atlas",
+      "linkLabel": "Personaggio di Atlas",
+      "linkConfirm": "Collega"
+    },
+    "context": {
+      "sync": "Sincronizza con Atlas"
+    },
+    "guard": {
+      "wrongSystem": "Sincronizzazione non disponibile: questo modulo richiede il sistema dnd5e (sistema attivo: {system}).",
+      "tooOld": "Sincronizzazione non disponibile: la versione dnd5e {version} è troppo vecchia (minimo {min}).",
+      "disabledHint": "Non disponibile: sistema di gioco non supportato."
+    },
+    "notify": {
+      "synced": "Personaggio sincronizzato.",
+      "created": "Personaggio creato in Atlas.",
+      "linked": "Personaggio collegato.",
+      "unlinked": "Personaggio scollegato.",
+      "pickCampaign": "Scelga prima una campagna.",
+      "noCharacters": "Nessun personaggio in questa campagna.",
+      "nothingLinked": "Nessun personaggio collegato da sincronizzare.",
+      "batchProgress": "Sincronizzazione di {name} ({current}/{total})…",
+      "batchDone": "Sincronizzazione completata: {ok} riuscite, {failed} fallite.",
+      "batchDoneErrors": "Sincronizzazione completata: {ok} riuscite, {failed} fallite ({names})."
+    },
+    "status": {
+      "OK": "Successo.",
+      "INVALID_TOKEN": "Token non valido o assente. Verifichi il token nelle impostazioni del modulo.",
+      "TOKEN_REVOKED": "Questo token è stato revocato. Ne generi uno nuovo in Atlas.",
+      "TIER_REQUIRED": "La sincronizzazione Foundry non è inclusa nel piano del proprietario del mondo.",
+      "CAMPAIGN_NOT_FOUND": "Campagna non trovata in questo mondo.",
+      "CHARACTER_NOT_FOUND": "Personaggio non trovato in questo mondo.",
+      "RATE_LIMITED": "Limite raggiunto: questo personaggio è stato sincronizzato di recente. Riprovi più tardi.",
+      "RATE_LIMITED_RETRY": "Sincronizzato di recente. Potrà risincronizzare tra {delay}.",
+      "VALIDATION_FAILED": "Atlas non ha potuto convalidare la scheda.",
+      "LIMIT_REACHED": "Limite di personaggi raggiunto per questo piano.",
+      "TOO_MANY_REQUESTS": "Troppe richieste. Attenda un momento e riprovi.",
+      "NETWORK_ERROR": "Impossibile raggiungere Atlas. Verifichi la connessione e l'URL dell'API.",
+      "UNKNOWN": "Qualcosa è andato storto."
+    },
+    "time": {
+      "hours": "h",
+      "minutes": "min",
+      "seconds": "s"
+    }
+  }
+}

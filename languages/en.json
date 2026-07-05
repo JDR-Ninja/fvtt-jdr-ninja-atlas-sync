@@ -55,7 +55,9 @@
       "pickCampaign": "Pick a campaign first.",
       "noCharacters": "No characters in this campaign.",
       "nothingLinked": "No linked characters to sync.",
-      "batchDone": "Sync done: {ok} succeeded, {failed} failed."
+      "batchProgress": "Syncing {name} ({current}/{total})…",
+      "batchDone": "Sync done: {ok} succeeded, {failed} failed.",
+      "batchDoneErrors": "Sync done: {ok} succeeded, {failed} failed ({names})."
     },
     "status": {
       "OK": "Success.",
@@ -65,11 +67,17 @@
       "CAMPAIGN_NOT_FOUND": "Campaign not found in this world.",
       "CHARACTER_NOT_FOUND": "Character not found in this world.",
       "RATE_LIMITED": "Rate limited: this character was synced recently. Try again later.",
+      "RATE_LIMITED_RETRY": "Synced recently. You can sync again in {delay}.",
       "VALIDATION_FAILED": "Atlas could not validate the sheet.",
       "LIMIT_REACHED": "Character limit reached for this plan.",
       "TOO_MANY_REQUESTS": "Too many requests. Wait a moment and try again.",
       "NETWORK_ERROR": "Could not reach Atlas. Check your connection and the API URL.",
       "UNKNOWN": "Something went wrong."
+    },
+    "time": {
+      "hours": "h",
+      "minutes": "min",
+      "seconds": "s"
     }
   }
 }

@@ -55,7 +55,9 @@
       "pickCampaign": "Choisissez d'abord une campagne.",
       "noCharacters": "Aucun personnage dans cette campagne.",
       "nothingLinked": "Aucun personnage lié à synchroniser.",
-      "batchDone": "Synchronisation terminée : {ok} réussite(s), {failed} échec(s)."
+      "batchProgress": "Synchronisation de {name} ({current}/{total})…",
+      "batchDone": "Synchronisation terminée : {ok} réussite(s), {failed} échec(s).",
+      "batchDoneErrors": "Synchronisation terminée : {ok} réussite(s), {failed} échec(s) ({names})."
     },
     "status": {
       "OK": "Succès.",
@@ -65,11 +67,17 @@
       "CAMPAIGN_NOT_FOUND": "Campagne introuvable dans ce monde.",
       "CHARACTER_NOT_FOUND": "Personnage introuvable dans ce monde.",
       "RATE_LIMITED": "Limite atteinte : ce personnage a déjà été synchronisé récemment. Réessayez plus tard.",
+      "RATE_LIMITED_RETRY": "Déjà synchronisé récemment. Vous pourrez resynchroniser dans {delay}.",
       "VALIDATION_FAILED": "La fiche n'a pas pu être validée par Atlas.",
       "LIMIT_REACHED": "Limite de personnages atteinte pour ce forfait.",
       "TOO_MANY_REQUESTS": "Trop de requêtes. Patientez un instant avant de réessayer.",
       "NETWORK_ERROR": "Impossible de joindre Atlas. Vérifiez votre connexion et l'adresse de l'API.",
       "UNKNOWN": "Une erreur est survenue."
+    },
+    "time": {
+      "hours": "h",
+      "minutes": "min",
+      "seconds": "s"
     }
   }
 }
