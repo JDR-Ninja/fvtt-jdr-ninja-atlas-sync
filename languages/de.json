@@ -43,8 +43,8 @@
       "sync": "Mit Atlas synchronisieren"
     },
     "guard": {
-      "wrongSystem": "Synchronisierung nicht verfügbar: Dieses Modul erfordert das System dnd5e (aktives System: {system}).",
-      "tooOld": "Synchronisierung nicht verfügbar: dnd5e-Version {version} ist zu alt (mindestens {min}).",
+      "wrongSystem": "Synchronisierung nicht verfügbar: Das aktive System ({system}) wird nicht unterstützt. Unterstützte Systeme: {supported}.",
+      "tooOld": "Synchronisierung nicht verfügbar: Version {version} des Systems {system} ist zu alt (mindestens {min}).",
       "disabledHint": "Nicht verfügbar: nicht unterstütztes Spielsystem."
     },
     "notify": {
@@ -73,6 +73,11 @@
       "TOO_MANY_REQUESTS": "Zu viele Anfragen. Warten Sie einen Moment und versuchen Sie es erneut.",
       "NETWORK_ERROR": "Atlas konnte nicht erreicht werden. Prüfen Sie Ihre Verbindung und die API-URL.",
       "UNKNOWN": "Etwas ist schiefgelaufen."
+    },
+    "error": {
+      "SYSTEM_MISMATCH": "Atlas akzeptiert das Spielsystem dieser Welt für diesen Bogen nicht. Prüfen Sie, ob das Modul aktuell ist.",
+      "TOO_LARGE": "Der Bogen ist zu groß für Atlas. Reduzieren Sie die Anzahl der Einträge (Fähigkeiten, Talente, Listen) und versuchen Sie es erneut.",
+      "MALFORMED_BODY": "Atlas konnte den empfangenen Bogen nicht lesen. Aktualisieren Sie das Modul und versuchen Sie es erneut."
     },
     "time": {
       "hours": "Std.",

@@ -43,8 +43,8 @@
       "sync": "Synchroniser vers Atlas"
     },
     "guard": {
-      "wrongSystem": "Synchronisation indisponible : ce module nécessite le système dnd5e (système actif : {system}).",
-      "tooOld": "Synchronisation indisponible : version dnd5e {version} trop ancienne (minimum {min}).",
+      "wrongSystem": "Synchronisation indisponible : le système actif ({system}) n'est pas pris en charge. Systèmes pris en charge : {supported}.",
+      "tooOld": "Synchronisation indisponible : la version {version} du système {system} est trop ancienne (minimum {min}).",
       "disabledHint": "Indisponible : système de jeu non pris en charge."
     },
     "notify": {
@@ -73,6 +73,11 @@
       "TOO_MANY_REQUESTS": "Trop de requêtes. Patientez un instant avant de réessayer.",
       "NETWORK_ERROR": "Impossible de joindre Atlas. Vérifiez votre connexion et l'adresse de l'API.",
       "UNKNOWN": "Une erreur est survenue."
+    },
+    "error": {
+      "SYSTEM_MISMATCH": "Atlas n'accepte pas le système de jeu de ce monde pour cette fiche. Vérifiez que le module est à jour.",
+      "TOO_LARGE": "La fiche est trop volumineuse pour Atlas. Réduisez le nombre d'entrées (compétences, talents, listes), puis réessayez.",
+      "MALFORMED_BODY": "Atlas n'a pas pu lire la fiche envoyée. Mettez le module à jour, puis réessayez."
     },
     "time": {
       "hours": "h",

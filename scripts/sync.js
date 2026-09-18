@@ -4,7 +4,7 @@
  * result envelope ({ ok, status, body }) and writes the flags back on success.
  */
 
-import { STATUS, localizeStatus, formatRetryDelay } from "./constants.js";
+import { STATUS, localizeStatus, localizeValidationError, formatRetryDelay } from "./constants.js";
 import { AtlasApi } from "./api.js";
 import { buildPayload } from "./converter.js";
 import { getLink, setLink, markSynced } from "./flags.js";
@@ -47,8 +47,11 @@ export async function createActor(actor, campaignId, markCreatedAsClaimable) {
   return result;
 }
 
-/** Surfaces an API result to the user as a localized notification. */
-/** The localized, user-facing message for a failed API result (rate-limit-aware). */
+/**
+ * The localized, user-facing message for a failed API result: rate-limit-aware, and specific for
+ * the validation failures the GM can act on (a wrong game system, a sheet over the server cap, a
+ * body the server could not read); any other error code keeps the generic status string.
+ */
 export function resultMessage(result) {
   // Rate limited: the server tells us the cooldown remaining, so say when to retry.
   if (result.status === STATUS.RATE_LIMITED && result.body?.retryAfterSeconds > 0) {
@@ -56,9 +59,15 @@ export function resultMessage(result) {
       delay: formatRetryDelay(result.body.retryAfterSeconds),
     });
   }
+  // Validation failed: the body carries `errors: [{ code, path }]`; the first code names the cause.
+  if (result.status === STATUS.VALIDATION_FAILED) {
+    const specific = localizeValidationError(result.body?.errors?.[0]?.code);
+    if (specific) return specific;
+  }
   return localizeStatus(result.status);
 }
 
+/** Surfaces an API result to the user as a localized notification. */
 export function notify(result, successKey = "JDRNINJA_ATLAS_SYNC.notify.synced") {
   if (result.ok) {
     ui.notifications.info(game.i18n.localize(successKey));

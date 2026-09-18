@@ -1,8 +1,8 @@
 {
   "id": "jdr-ninja-atlas-sync",
   "title": "Atlas Character Sync",
-  "description": "Pushes your D&D 5e (dnd5e) actors into JDR Ninja Atlas player characters with one click. One-way (Foundry → Atlas).",
-  "version": "0.1.0",
+  "description": "Pushes your player characters into JDR Ninja Atlas with one click. One-way (Foundry → Atlas). Supported game systems: dnd5e, tor2e, pf2e, sf2e, wfrp4e.",
+  "version": "0.2.0",
   "authors": [
     {
       "name": "JDR Ninja",

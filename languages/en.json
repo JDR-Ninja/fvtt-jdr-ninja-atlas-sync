@@ -43,8 +43,8 @@
       "sync": "Sync to Atlas"
     },
     "guard": {
-      "wrongSystem": "Sync unavailable: this module requires the dnd5e system (active system: {system}).",
-      "tooOld": "Sync unavailable: dnd5e version {version} is too old (minimum {min}).",
+      "wrongSystem": "Sync unavailable: the active system ({system}) is not supported. Supported systems: {supported}.",
+      "tooOld": "Sync unavailable: {system} version {version} is too old (minimum {min}).",
       "disabledHint": "Unavailable: unsupported game system."
     },
     "notify": {
@@ -73,6 +73,11 @@
       "TOO_MANY_REQUESTS": "Too many requests. Wait a moment and try again.",
       "NETWORK_ERROR": "Could not reach Atlas. Check your connection and the API URL.",
       "UNKNOWN": "Something went wrong."
+    },
+    "error": {
+      "SYSTEM_MISMATCH": "Atlas does not accept this world's game system for this sheet. Check that the module is up to date.",
+      "TOO_LARGE": "The sheet is too large for Atlas. Reduce the number of entries (skills, talents, lists), then try again.",
+      "MALFORMED_BODY": "Atlas could not read the sheet it received. Update the module, then try again."
     },
     "time": {
       "hours": "h",
